@@ -1,0 +1,19 @@
+{% extends 'flashcards/base.html' %}
+
+
+
+{% block content %}
+
+{% if flashcard %}
+  <h2>Learn Flashcard - {{ flashcard.kanji }}</h2>
+  <!-- Display other flashcard details -->
+  <form method="POST" action="{% url 'learn' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% else %}
+  <p>No flashcards to learn at the moment.</p>
+{% endif %}
+
+{% endblock %}

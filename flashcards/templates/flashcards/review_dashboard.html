@@ -1,0 +1,17 @@
+{% extends 'flashcards/base.html' %}
+
+
+{% block content %}
+
+{% if flashcard %}
+  <h2>Review Flashcard - {{ flashcard.flashcard.kanji }}</h2>
+  <!-- Display other flashcard details -->
+  <form method="POST" action="{% url 'review' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+  </form>
+{% else %}
+  <p>No flashcards to review at the moment.</p>
+{% endif %}
+
+{% endblock %}
