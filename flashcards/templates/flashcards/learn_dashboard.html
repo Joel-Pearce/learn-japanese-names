@@ -12,6 +12,11 @@
     {{ form.as_p }}
     <button type="submit">Submit</button>
   </form>
+
+{% if message %}
+  {{ message.as_p }}
+{% endif %}
+
 {% else %}
   <p>No flashcards to learn at the moment.</p>
 {% endif %}

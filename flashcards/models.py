@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -13,7 +14,7 @@ class Flashcard(models.Model):
 
 class Deck(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    flashcards = models.ManyToManyField(Flashcard, through='Review')
+    flashcards = models.ManyToManyField(Flashcard, through="Review")
 
     def __str__(self):
         return f"Deck for {self.user.username}"
@@ -22,21 +23,22 @@ class Deck(models.Model):
 class Review(models.Model):
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE, default=None)
     flashcard = models.ForeignKey(Flashcard, on_delete=models.CASCADE)
-    last_review_date = models.DateTimeField(default=timezone.now)
-    next_review_date = models.DateTimeField(default=timezone.now)
-    reviewed = models.BooleanField(default=False)
+    last_review_date = models.DateTimeField(default=datetime.now)
+    next_review_date = models.DateTimeField(default=datetime.now)
+    ready_for_review = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Review for {self.flashcard.kanji}"
 
     def update_review_date(self, is_correct):
         if is_correct:
-            self.last_review_date = timezone.now()
-            self.next_review_date = self.last_review_date + timezone.timedelta(days=1)  # Increase review interval by 1 minute
+            self.last_review_date = datetime.now()
+            self.next_review_date = self.last_review_date + timedelta(days=1)
         else:
-            self.next_review_date = timezone.now()
-        self.reviewed = True  # Mark the flashcard as reviewed
+            self.next_review_date = datetime.now()
+        self.ready_for_review = False
         self.save()
 
     def is_ready_for_review(self):
-        return self.next_review_date <= timezone.now()
+        if self.next_review_date <= datetime.now():
+            self.ready_for_review = True
