@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 
 class Flashcard(models.Model):
@@ -16,8 +15,8 @@ class Deck(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     flashcards = models.ManyToManyField(Flashcard, through="Review")
 
-    def __str__(self):
-        return f"Deck for {self.user.username}"
+    def __unicode__(self):
+        return self.user
 
 
 class Review(models.Model):
@@ -27,8 +26,8 @@ class Review(models.Model):
     next_review_date = models.DateTimeField(default=datetime.now)
     ready_for_review = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"Review for {self.flashcard.kanji}"
+    def __unicode__(self):
+        return self.flashcard
 
     def update_review_date(self, is_correct):
         if is_correct:
@@ -42,3 +41,4 @@ class Review(models.Model):
     def is_ready_for_review(self):
         if self.next_review_date <= datetime.now():
             self.ready_for_review = True
+            self.save()

@@ -9,7 +9,13 @@
   <form method="POST" action="{% url 'review' %}">
     {% csrf_token %}
     {{ form.as_p }}
+    <button type="submit">Submit</button>
   </form>
+
+{% if message %}
+  {{ message.as_p }}
+{% endif %}
+
 {% else %}
   <p>No flashcards to review at the moment.</p>
 {% endif %}
