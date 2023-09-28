@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from flashcards.models import Deck, Flashcard, Review
 from flashcards.forms import FlashcardForm
+from flashcards.utils import check_input
 
 import random
 
@@ -70,7 +71,7 @@ def review_dashboard(request):
 
     if request.method == "POST":
         hiragana = request.POST["user_response"]
-        if hiragana == flashcard.flashcard.hiragana:
+        if check_input(hiragana, flashcard.flashcard.hiragana):
             flashcard.update_review_date(is_correct=True)
             return redirect("review")
         else:
@@ -105,7 +106,7 @@ def learn_dashboard(request):
 
     if request.method == "POST":
         hiragana = request.POST["user_response"]
-        if hiragana == flashcard.hiragana:
+        if check_input(hiragana, flashcard.hiragana):
             # Flashcard answered correctly, add it to the user's deck for review
             review = Review(deck=user_deck, flashcard=flashcard)
             review.save()
