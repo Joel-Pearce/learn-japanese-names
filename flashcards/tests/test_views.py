@@ -86,6 +86,12 @@ def test_review_dashboard_multiple_users(
     response = client.post(url, {"user_response": "にち"})
     assert response.status_code == 302
 
+    response = client.post(url, {"user_response": "Incorrect answer"})
+    assert (
+        response.context.get("message")
+        == "I'm afraid that is incorrect. Please try again."
+    )
+
     response = client.post(url, {"user_response": "くち"})
     assert response.status_code == 302
 
