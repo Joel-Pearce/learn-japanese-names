@@ -66,6 +66,10 @@ def test_review_dashboard(client, user, flashcard, deck, review):
     response = client.post(url, {"user_response": "にち"})
     assert response.status_code == 302
 
+    response = client.get(url)
+    assert response.status_code == 200
+    assert b"No flashcards to review at the moment." in response.content
+
 
 @pytest.mark.django_db
 def test_review_dashboard_multiple_users(

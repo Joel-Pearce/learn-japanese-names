@@ -1,7 +1,6 @@
 from flashcards.models import Flashcard, Review, Deck
 from django.contrib.auth.models import User
 import pytest
-from datetime import datetime
 from django.contrib.auth.hashers import make_password
 
 
@@ -29,9 +28,8 @@ def review(flashcard, user, deck):
     return Review.objects.create(
         deck=deck,
         flashcard=flashcard,
-        last_review_date=datetime(1994, 9, 21),
-        next_review_date=datetime(1994, 9, 21),
         ready_for_review=True,
+        exponential_time=1,
     )
 
 
@@ -87,9 +85,25 @@ def multiple_reviews(multiple_decks, multiple_flashcards):
             review = Review.objects.create(
                 deck=deck,
                 flashcard=flashcard,
-                last_review_date=datetime(1994, 9, 21),
-                next_review_date=datetime(1994, 9, 21),
                 ready_for_review=True,
+                exponential_time=1,
             )
             reviews.append(review)
     return reviews
+
+
+@pytest.fixture
+def deck_with_reviewable_flashcard(user):
+    deck = Deck.objects.create(user=user)
+    deck.save()
+    return deck
+
+
+@pytest.fixture
+def review_to_be_updated(flashcard, user, deck_with_reviewable_flashcard):
+    return Review.objects.create(
+        deck=deck_with_reviewable_flashcard,
+        flashcard=flashcard,
+        ready_for_review=False,
+        exponential_time=1,
+    )

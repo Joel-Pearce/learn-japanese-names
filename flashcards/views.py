@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from flashcards.models import Deck, Flashcard, Review
 from flashcards.forms import FlashcardForm
-from flashcards.utils import check_input
+from flashcards.utils import check_input, update_flashcards_in_deck
 
 import random
 
@@ -49,6 +49,7 @@ def review_dashboard(request):
         )
     else:
         user_deck = Deck.objects.filter(user=request.user).first()
+        update_flashcards_in_deck(user_deck)
 
     # next, check if there is anything to review in the deck
     if (
@@ -76,8 +77,6 @@ def review_dashboard(request):
             return redirect("review")
         else:
             message = "I'm afraid that is incorrect. Please try again."
-            flashcard.update_review_date(is_correct=False)
-            flashcard.is_ready_for_review()
             return render(
                 request,
                 "flashcards/review_dashboard.html",
