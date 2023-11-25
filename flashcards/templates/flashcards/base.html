@@ -23,10 +23,11 @@
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'flashcards/images/logo.png' %}" height="35px" alt="logo">
             </a>
-            <a class="navbar-brand mb-0 h1" href="{% url 'login' %}">Login</a>
-            <a class="navbar-brand mb-0 h1" href="{% url 'signup' %}">Signup</a>
+            <div class="d-flex">
+                <a class="navbar-brand mb-0 h1 btn btn-dark" role="button" href="{% url 'login' %}">Login</a>
+                <a class="navbar-brand mb-0 h1 btn btn-dark" role="button" href="{% url 'signup' %}">Signup</a>
+            </div>
         {% endif %}
-        <div class="container-fluid">
 
     </nav>
 
