@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.slab-serif-font {
+    font-family: 'Slab Serif', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}

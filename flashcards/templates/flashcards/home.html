@@ -2,6 +2,31 @@
 
 {% block content %}
 
-HOME
+{% load static %}
+
+<div class="container">
+
+    <div class="text-center">
+    <br>
+    <h2 class="display-2">名の漢字を覚えよ!</h2>
+    <hr>
+        <div class="row">
+            <div class="col">
+                <p class="lead">Japanese names can be difficult to get your head around.</p>
+                <p class="lead">The kanji are not always very intuitive, and it can take some time to put them into the context of an actual name.</p>
+                <p class="lead">The best way to learn is by doing, which is why we've created this site: to give you an easy and engaging way of memorising kanji used in names.</p>
+                <p class="lead">This site is still in alpha, and as such only consists of the 100 most common Japanese names.</p>
+                <p class="lead">Our intention is to make this a free, open source site for learning and memorising the readings of Japanese names with the help of <a href="https://en.wikipedia.org/wiki/Input_hypothesis">comprehensible input</a>.</p>
+                <p class="lead">Cards are first available to be learnt, and then can be reviewed.</p>
+                <hr>
+                <button class="btn btn-outline-dark btn-lg">Learn more</button>
+            </div>
+            <div class="col">
+                <img src="{% static 'flashcards/images/home_page_image.png' %}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}
