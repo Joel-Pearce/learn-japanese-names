@@ -2,21 +2,47 @@
 
 {% block content %}
 
-{% if flashcard %}
-  <h2>Review Flashcard - {{ flashcard.flashcard.kanji }}</h2>
-  <!-- Display other flashcard details -->
-  <form method="POST" action="{% url 'review' %}" autocomplete="off">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-  </form>
+<div class="container">
 
-{% if message %}
-  {{ message }}
-{% endif %}
+{% if flashcard %}
+
+  <div class="vstack gap-3 justify-content-center align-items-center">
+
+    <div class="card text-black bg-light mt-3" style="width: 50%;">
+      <div class="card-header display-1 text-center">{{ flashcard.flashcard.kanji }}</div>
+      <div class="card-body">
+        <form method="POST" action="{% url 'review' %}" autocomplete="off" novalidate>
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-10">
+              {{ form.as_p }}
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-outline-dark">入力</button>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+
+  {% if message %}
+  <p class="text-center">
+    {{ message }}
+  </p>
+  {% endif %}
+
+</div>
 
 {% else %}
-  <p>No flashcards to review at the moment.</p>
+<div class="card bg-light mt-3 justify-centre" style="width: 50%;">
+  <div class="card-header display-1 text-center">何もない！</div>
+  <div class="card-body">
+    <h5 class="card-title">Nothing to review</h5>
+    <p class="card-text">You don't have any cards to review at the moment. How about learning some more in the meantime?</p>
+  </div>
+</div>
 {% endif %}
+
+</div>
 
 {% endblock %}
