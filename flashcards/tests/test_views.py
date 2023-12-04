@@ -43,7 +43,7 @@ def test_learn_dashboard_multiple_users(
     client.login(username="example_user1", password="Abc123!!!")
     response = client.get(url)
     assert response.status_code == 200
-    assert b"No flashcards to learn at the moment." in response.content
+    assert b"You don't have any cards to learn at the moment." in response.content
 
 
 @pytest.mark.django_db
@@ -68,7 +68,7 @@ def test_review_dashboard(client, user, flashcard, deck, review):
 
     response = client.get(url)
     assert response.status_code == 200
-    assert b"No flashcards to review at the moment." in response.content
+    assert b"You don't have any cards to review at the moment." in response.content
 
 
 @pytest.mark.django_db
@@ -100,4 +100,4 @@ def test_review_dashboard_multiple_users(
 
     response = client.get(url)
     assert response.status_code == 200
-    assert b"No flashcards to review at the moment." in response.content
+    assert b"You don't have any cards to review at the moment." in response.content
