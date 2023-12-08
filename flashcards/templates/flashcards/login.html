@@ -1,13 +1,35 @@
 {% extends 'flashcards/base.html' %}
 
-
 {% block content %}
 
-<h2>Log In</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
+<div class="container">
+
+    <div class="vstack gap-3 justify-content-center align-items-center">
+
+        <h1 class="display-1">Login</h1>
+
+        <div class="authentication-card bg-light" style="width: 50%;">
+
+            <form method="post" style="width: 100%;">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group mb-3">
+                    <label for="{{ form.username.id_for_label }}" class="h5">Username</label>
+                    {{ form.username.errors }}
+                    <input type="text" class="form-control" id="{{ form.username.id_for_label }}" placeholder="Enter username" name="{{ form.username.name }}">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="{{ form.password.id_for_label }}" class="h5">Password</label>
+                    {{ form.password.errors }}
+                    <input type="password" class="form-control" id="{{ form.password.id_for_label }}" placeholder="Enter password" name="{{ form.password.name }}">
+                </div>
+                <button type="submit" class="btn btn-outline-dark" style="width: 100%;">ログイン</button>
+            </form>
+
+         </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

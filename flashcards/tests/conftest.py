@@ -36,7 +36,7 @@ def review(flashcard, user, deck):
 @pytest.fixture
 def multiple_flashcards():
     flashcards = [
-        Flashcard(kanji="日", hiragana="にち"),
+        Flashcard(kanji="鬱", hiragana="うつ"),
         Flashcard(kanji="⼝", hiragana="くち"),
         Flashcard(kanji="去", hiragana="きょ"),
     ]

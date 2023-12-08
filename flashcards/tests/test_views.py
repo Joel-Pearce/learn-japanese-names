@@ -83,7 +83,7 @@ def test_review_dashboard_multiple_users(
     response = client.get(url)
     assert response.status_code == 200
 
-    response = client.post(url, {"user_response": "にち"})
+    response = client.post(url, {"user_response": "うつ"})
     assert response.status_code == 302
 
     response = client.post(url, {"user_response": "Incorrect answer"})

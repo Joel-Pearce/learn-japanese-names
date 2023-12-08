@@ -13,3 +13,8 @@ a:hover {
     font-weight: bold;
     text-transform: uppercase;
 }
+
+.authentication-card {
+    border: none;
+    padding: 5px;
+}

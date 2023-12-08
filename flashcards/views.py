@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
 from flashcards.models import Deck, Flashcard, Review
-from flashcards.forms import FlashcardForm
+from flashcards.forms import (
+    FlashcardForm,
+    CustomAuthenticationForm,
+    CustomUserCreationForm,
+)
 from flashcards.utils import check_input, update_flashcards_in_deck
 
 import random
@@ -16,25 +19,25 @@ def home(request):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect("home")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, "flashcards/signup.html", {"form": form})
 
 
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             return redirect("home")
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, "flashcards/login.html", {"form": form})
 
 
