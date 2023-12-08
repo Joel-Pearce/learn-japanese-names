@@ -11,6 +11,17 @@ def test_home(client):
 
 
 @pytest.mark.django_db
+def test_general_dashboard(client, user, flashcard, deck, review):
+    url = reverse("dashboard")
+    response = client.get(url)
+    assert response.status_code == 302
+
+    client.login(username="example_user", password="Abc123!!!")
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
 def test_learn_dashboard(client, user, flashcard):
     url = reverse("learn")
     response = client.get(url)

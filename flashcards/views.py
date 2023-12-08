@@ -8,7 +8,12 @@ from flashcards.forms import (
     CustomAuthenticationForm,
     CustomUserCreationForm,
 )
-from flashcards.utils import check_input, update_flashcards_in_deck
+from flashcards.utils import (
+    check_input,
+    update_flashcards_in_deck,
+    get_number_of_user_learn_cards,
+    get_number_of_user_review_cards,
+)
 
 import random
 
@@ -125,4 +130,19 @@ def learn_dashboard(request):
         request,
         "flashcards/learn_dashboard.html",
         {"flashcard": flashcard, "form": FlashcardForm()},
+    )
+
+
+@login_required
+def general_dashboard(request):
+    num_to_review = get_number_of_user_review_cards(request.user)
+    num_to_learn = get_number_of_user_learn_cards(request.user)
+
+    return render(
+        request,
+        "flashcards/general_dashboard.html",
+        {
+            "num_to_review": num_to_review,
+            "num_to_learn": num_to_learn,
+        },
     )

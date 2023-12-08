@@ -1,0 +1,50 @@
+{% extends 'flashcards/base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="text-center">
+
+        <h1 class="display1">いらっしゃいませ!</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col">
+
+                <div class="card text-black bg-light mt-3" style="width: 100%;">
+                    <div class="card-header h5 text-center">Cards to review</div>
+                    <div class="card-body">
+                        <h1 class="display-1">{{ num_to_review }}</h1>
+                        <a href="{% url 'review' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+
+            </div>
+
+            <div class="col">
+
+                <div class="card text-black bg-light mt-3" style="width: 100%;">
+                    <div class="card-header h5 text-center">Cards to learn</div>
+                    <div class="card-body">
+                        <h1 class="display-1">{{ num_to_learn }}</h1>
+                        <a href="{% url 'learn' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
