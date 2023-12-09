@@ -48,6 +48,7 @@ def login_view(request):
 
 @login_required
 def review_dashboard(request):
+    form = FlashcardForm(request.POST or None)
     # first, check if the user has a deck
     if Deck.objects.filter(user=request.user) is None:
         return render(
@@ -69,7 +70,7 @@ def review_dashboard(request):
         return render(
             request,
             "flashcards/review_dashboard.html",
-            {"flashcard": None, "form": FlashcardForm()},
+            {"flashcard": None, "form": form},
         )
     else:
         flashcard = (
@@ -88,18 +89,19 @@ def review_dashboard(request):
             return render(
                 request,
                 "flashcards/review_dashboard.html",
-                {"flashcard": flashcard, "form": FlashcardForm(), "message": message},
+                {"flashcard": flashcard, "form": form, "message": message},
             )
 
     return render(
         request,
         "flashcards/review_dashboard.html",
-        {"flashcard": flashcard, "form": FlashcardForm()},
+        {"flashcard": flashcard, "form": form},
     )
 
 
 @login_required
 def learn_dashboard(request):
+    form = FlashcardForm(request.POST or None)
     if not Deck.objects.filter(user=request.user):
         user_deck = Deck(user=request.user)
         user_deck.save()
@@ -123,13 +125,13 @@ def learn_dashboard(request):
             return render(
                 request,
                 "flashcards/learn_dashboard.html",
-                {"flashcard": flashcard, "form": FlashcardForm(), "message": message},
+                {"flashcard": flashcard, "form": form, "message": message},
             )
 
     return render(
         request,
         "flashcards/learn_dashboard.html",
-        {"flashcard": flashcard, "form": FlashcardForm()},
+        {"flashcard": flashcard, "form": form},
     )
 
 
