@@ -40,13 +40,13 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect("home")
+            return redirect("dashboard")
     else:
         form = CustomAuthenticationForm()
     return render(request, "flashcards/login.html", {"form": form})
 
 
-@login_required
+@login_required(login_url="/login")
 def review_dashboard(request):
     form = FlashcardForm(request.POST or None)
     # first, check if the user has a deck
@@ -99,7 +99,7 @@ def review_dashboard(request):
     )
 
 
-@login_required
+@login_required(login_url="/login")
 def learn_dashboard(request):
     form = FlashcardForm(request.POST or None)
     if not Deck.objects.filter(user=request.user):
@@ -135,7 +135,7 @@ def learn_dashboard(request):
     )
 
 
-@login_required
+@login_required(login_url="/signup")
 def general_dashboard(request):
     num_to_review = get_number_of_user_review_cards(request.user)
     num_to_learn = get_number_of_user_learn_cards(request.user)
