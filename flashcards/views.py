@@ -137,6 +137,9 @@ def learn_dashboard(request):
 
 @login_required(login_url="/signup")
 def general_dashboard(request):
+    if user_deck := Deck.objects.filter(user=request.user).first():
+        update_flashcards_in_deck(user_deck)
+
     num_to_review = get_number_of_user_review_cards(request.user)
     num_to_learn = get_number_of_user_learn_cards(request.user)
 

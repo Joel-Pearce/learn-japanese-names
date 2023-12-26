@@ -112,3 +112,22 @@ def test_review_dashboard_multiple_users(
     response = client.get(url)
     assert response.status_code == 200
     assert b"You don't have any cards to review at the moment." in response.content
+
+
+@pytest.mark.django_db
+def test_general_dashboard(client, flashcard, multiple_flashcards, user, deck, review):
+    url = reverse("dashboard")
+    response = client.get(url)
+    assert response.status_code == 302
+
+    client.login(username="example_user", password="Abc123!!!")
+    response = client.get(url)
+    assert response.status_code == 200
+
+    learn_url = reverse("learn")
+    client.get(learn_url)
+    client.post(learn_url, {"user_response": "うつ"})
+
+    response = client.get(url)
+    # Previously, there was 1 review card; this should now be incremented to 2.
+    assert b'<h1 class="display-1">2</h1>' in response.content
