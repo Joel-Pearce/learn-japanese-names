@@ -119,7 +119,7 @@ def learn_dashboard(request):
             # Flashcard answered correctly, add it to the user's deck for review
             review = Review(deck=user_deck, flashcard=flashcard)
             review.save()
-            return redirect("learn")
+            return redirect("story")
         else:
             message = "I'm afraid that is incorrect. Please try again."
             return render(
@@ -150,4 +150,34 @@ def general_dashboard(request):
             "num_to_review": num_to_review,
             "num_to_learn": num_to_learn,
         },
+    )
+
+
+@login_required(login_url="/login")
+def story(request):
+    if not Deck.objects.filter(user=request.user):
+        user_deck = Deck(user=request.user)
+        user_deck.save()
+    else:
+        user_deck = Deck.objects.filter(user=request.user).first()
+
+    try:
+        flashcard = Flashcard.objects.exclude(deck=user_deck.id).order_by("id").first()
+    except:
+        flashcard = Flashcard.objects.get(id=1)
+
+    if not flashcard:
+        return render(
+            request,
+            "flashcards/story.html",
+            {"flashcard": flashcard},
+        )
+
+    story_image = flashcard.image
+    image_path = f"flashcards/images/{story_image}"
+
+    return render(
+        request,
+        "flashcards/story.html",
+        {"flashcard": flashcard, "image_path": image_path},
     )

@@ -1,0 +1,43 @@
+{% extends 'flashcards/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container">
+
+{% if flashcard %}
+
+    <div class="text-center">
+    <br>
+    <h2 class="display-2">{{ flashcard.kanji }}</h2>
+    <hr>
+        <div class="row" >
+            <div class="col" style="overflow-y: auto;">
+                <p class="lead" style="font-size: 1.5em;">{{ flashcard.story|linebreaksbr }}</p>
+                <hr>
+                <a class="btn btn-outline-dark btn-lg" href="{% url 'learn' %}">フラッシュカード</a>
+            </div>
+            <div class="col">
+                <img src="{% static image_path %}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+{% else %}
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card bg-light mt-3 justify-centre" style="width: 50%;">
+      <div class="card-header display-1 text-center">何もない！</div>
+      <div class="card-body">
+        <h5 class="card-title">Nothing to learn</h5>
+        <p class="card-text">You don't have any cards to learn at the moment. How about reviewing more in the meantime?</p>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

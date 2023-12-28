@@ -131,3 +131,15 @@ def test_general_dashboard(client, flashcard, multiple_flashcards, user, deck, r
     response = client.get(url)
     # Previously, there was 1 review card; this should now be incremented to 2.
     assert b'<h1 class="display-1">2</h1>' in response.content
+
+
+@pytest.mark.django_db
+def test_story(client, user, flashcard):
+    url = reverse("story")
+    response = client.get(url)
+    assert response.status_code == 302
+
+    client.login(username="example_user", password="Abc123!!!")
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response.context.get("flashcard") == flashcard

@@ -24,7 +24,11 @@ class Command(BaseCommand):
         # Iterate through each row in the DataFrame and create Flashcard objects
         for index, row in df.iterrows():
             Flashcard.objects.create(
-                kanji=row["kanji"], hiragana=row["hiragana"], surname=row["surname"]
+                kanji=row["kanji"],
+                hiragana=row["hiragana"],
+                surname=row["surname"],
+                story=row["story"],
+                image=row["image"],
             )
 
         self.stdout.write(

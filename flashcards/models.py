@@ -8,8 +8,8 @@ class Flashcard(models.Model):
     kanji = models.CharField(max_length=10)
     hiragana = models.CharField(max_length=100)
     surname = models.BooleanField(default=False)
-    story = models.TextField(null=True)
-    image = models.ImageField(null=True)
+    story = models.TextField()
+    image = models.CharField(max_length=20)
 
     def __str__(self):
         return self.kanji

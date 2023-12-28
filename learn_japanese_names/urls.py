@@ -15,6 +15,7 @@ urlpatterns = [
     path("learn/", views.learn_dashboard, name="learn"),
     path("review/", views.review_dashboard, name="review"),
     path("dashboard/", views.general_dashboard, name="dashboard"),
+    path("story/", views.story, name="story"),
 ]
 
 if settings.DEBUG:
