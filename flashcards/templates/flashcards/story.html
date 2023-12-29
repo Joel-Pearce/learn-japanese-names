@@ -12,14 +12,18 @@
     <br>
     <h2 class="display-2">{{ flashcard.kanji }}</h2>
     <hr>
-        <div class="row" >
-            <div class="col" style="overflow-y: auto;">
-                <p class="lead" style="font-size: 1.5em;">{{ flashcard.story|linebreaksbr }}</p>
-                <hr>
-                <a class="btn btn-outline-dark btn-lg" href="{% url 'learn' %}">フラッシュカード</a>
+        <div class="row">
+            <div class="col d-flex flex-column" style="overflow-y: auto">
+                <p class="lead mb-auto" style="font-size: 1.5em;">{{ flashcard.story|linebreaksbr }}</p>
+                <hr class="mt-auto">
             </div>
             <div class="col">
                 <img src="{% static image_path %}" class="img-fluid">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-outline-dark btn-lg" href="{% url 'learn' %}">フラッシュカードヘー</a>
             </div>
         </div>
     </div>
