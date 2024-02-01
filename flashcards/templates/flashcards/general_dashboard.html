@@ -2,49 +2,56 @@
 
 {% block content %}
 
+{% load static %}
+
 <div class="container">
 
     <div class="text-center">
 
-        <h1 class="display-1">いらっしゃいませ!</h1>
+        <h1 class="display-3">いらっしゃいませ!</h1>
 
         <hr>
 
         <div class="row">
 
-            <div class="col-2">
+            <div class="col">
 
-            </div>
-
-            <div class="col-3">
-
-                <div class="card text-black bg-light mt-3" style="width: 100%;">
-                    <div class="card-header h5 text-center">Cards to review</div>
+                <div class="card text-black bg-light" style="width: 100%;">
+                    <div class="card-header h5 text-center">復習 </div>
                     <div class="card-body">
-                        <h1 class="display-1">{{ num_to_review }}</h1>
-                        <a href="{% url 'review' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                        <img src="{% static 'flashcards/images/review.png' %}" class="img-fluid">
+                        <hr>
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <a href="{% url 'review' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                            </div>
+                            <div class="col-2">
+                                <h5>残り: {{ num_to_review }}</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col-2">
 
-            </div>
+            <div class="col">
 
-            <div class="col-3">
-
-                <div class="card text-black bg-light mt-3" style="width: 100%;">
-                    <div class="card-header h5 text-center">Cards to learn</div>
+                <div class="card text-black bg-light" style="width: 100%;">
+                    <div class="card-header h5 text-center">学ぶ</div>
                     <div class="card-body">
-                        <h1 class="display-1">{{ num_to_learn }}</h1>
-                        <a href="{% url 'story' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                        <img src="{% static 'flashcards/images/learn.png' %}" class="img-fluid">
+                        <hr>
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <a href="{% url 'story' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
+                            </div>
+                            <div class="col-2">
+                                <h5>残り: {{ num_to_learn }}</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col-2">
 
             </div>
 

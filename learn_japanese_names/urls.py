@@ -1,10 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from flashcards import views
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -16,6 +15,7 @@ urlpatterns = [
     path("review/", views.review_dashboard, name="review"),
     path("dashboard/", views.general_dashboard, name="dashboard"),
     path("story/", views.story, name="story"),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:

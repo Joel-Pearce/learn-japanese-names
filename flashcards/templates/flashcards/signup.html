@@ -1,6 +1,9 @@
 {% extends 'flashcards/base.html' %}
 
+{% load socialaccount %}
 {% block content %}
+
+{% load static %}
 
 <div class="container">
 
@@ -28,7 +31,17 @@
                     {{ form.password.errors }}
                     <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" placeholder="Enter password again" name="{{ form.password2.name }}">
                 </div>
-                <button type="submit" class="btn btn-outline-dark" style="width: 100%;">サインアップ</button>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-11">
+                        <button type="submit" class="btn btn-outline-dark" style="width: 100%;">サインアップ</button>
+                    </div>
+                    <div class="col-1 d-flex justify-content-center">
+                        <a href="{% provider_login_url 'google' %}?next=/">
+                            <i class="fab fa-google google-icon"></i>
+                            <img src="{% static 'flashcards/images/google_icon.png' %}" style="width: 105%; height: 105%; margin-left: -10px;" alt="google_icon" class="justify-content-center">
+                        </a>
+                    </div>
+                </div>
             </form>
 
          </div>
@@ -36,5 +49,4 @@
     </div>
 
 </div>
-
 {% endblock %}
