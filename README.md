@@ -58,3 +58,18 @@ Install dependencies:
 ```
 python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
+
+Seed database locally:
+```
+python manage.py populate_db flashcards/resources/seed_database.csv
+```
+
+Run migrations:
+```
+python manage.py migrate
+```
+
+Run application:
+```
+python manage.py runserver
+```
