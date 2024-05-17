@@ -39,6 +39,10 @@ class Review(models.Model):
         return self.flashcard
 
     def is_ready_for_review(self):
+        """Checks whether a flashcard is ready for review.
+
+        If it is, then the 'reader_to_review' variable is set to True, meaning it will appear
+        in a user's review dashboard."""
         if self.next_review_date <= timezone.now():
             self.ready_for_review = True
             self.save()
@@ -47,6 +51,10 @@ class Review(models.Model):
             self.save()
 
     def update_review_date(self, is_correct):
+        """Updates the next date at which a flashcard is to be reviewed.
+
+        If the user gets the review wrong once, then the flashcard will appear again the next day,
+        and the increment by which it will appear is shortened."""
         if is_correct:
             self.last_review_date = timezone.now()
             self.next_review_date = timezone.now() + timedelta(
