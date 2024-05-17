@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+import math
+
 
 class Flashcard(models.Model):
     kanji = models.CharField(max_length=10)
@@ -30,6 +32,8 @@ class Review(models.Model):
     next_review_date = models.DateTimeField(default=timezone.now())
     ready_for_review = models.BooleanField(default=False)
     exponential_time = models.FloatField(default=1)
+    exponential_increment = models.FloatField(default=0)
+    was_wrong = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.flashcard
@@ -46,8 +50,18 @@ class Review(models.Model):
         if is_correct:
             self.last_review_date = timezone.now()
             self.next_review_date = timezone.now() + timedelta(
-                days=float(self.exponential_time)
+                days=self.exponential_time
             )
-            self.exponential_time += 1
+            if not self.was_wrong:
+                self.exponential_increment += 1
+                self.exponential_time += self.exponential_increment
+            else:
+                self.next_review_date = timezone.now() + timedelta(1)
+                self.exponential_time = math.ceil(self.exponential_time / 2)
+                self.exponential_increment = 0
+                self.was_wrong = False
+
+        else:
+            self.was_wrong = True
         self.is_ready_for_review()
         self.save()

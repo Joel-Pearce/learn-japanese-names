@@ -9,6 +9,7 @@ defusedxml==0.7.1
 Django==4.2.3
 django-allauth==0.60.0
 exceptiongroup==1.1.2
+freezegun
 idna==3.6
 iniconfig==2.0.0
 numpy==1.26.2
