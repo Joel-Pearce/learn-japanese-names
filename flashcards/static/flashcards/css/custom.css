@@ -3,6 +3,7 @@ a {
     color: white;
 }
 
+
 a:hover {
     text-decoration: underline;
 }
@@ -13,6 +14,7 @@ a:hover {
     font-weight: bold;
     text-transform: uppercase;
 }
+
 
 .authentication-card {
     border: none;

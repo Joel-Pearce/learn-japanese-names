@@ -8,7 +8,7 @@
 
     <div class="text-center">
 
-        <h1 class="display-3">いらっしゃいませ!</h1>
+        <h1 class="display-3 mt-3">いらっしゃいませ!</h1>
 
         <hr>
 
@@ -16,8 +16,8 @@
 
             <div class="col">
 
-                <div class="card text-black bg-light" style="width: 100%;">
-                    <div class="card-header h5 text-center">復習 </div>
+                <div class="card text-black bg-light mb-3" style="width: 100%;">
+                    <div class="card-header h5 text-center">復習</div>
                     <div class="card-body">
                         <img src="{% static 'flashcards/images/review.png' %}" class="img-fluid">
                         <hr>
@@ -26,7 +26,7 @@
                                 <a href="{% url 'review' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
                             </div>
                             <div class="col-2">
-                                <h5>残り: {{ num_to_review }}</h5>
+                                <h6>残り: {{ num_to_review }}</h6>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
             <div class="col">
 
-                <div class="card text-black bg-light" style="width: 100%;">
+                <div class="card text-black bg-light mb-3" style="width: 100%;">
                     <div class="card-header h5 text-center">学ぶ</div>
                     <div class="card-body">
                         <img src="{% static 'flashcards/images/learn.png' %}" class="img-fluid">
@@ -47,7 +47,7 @@
                                 <a href="{% url 'story' %}" class="btn btn-outline-dark" style="width: 100%;">スタート</a>
                             </div>
                             <div class="col-2">
-                                <h5>残り: {{ num_to_learn }}</h5>
+                                <h6>残り: {{ num_to_learn }}</h6>
                             </div>
                         </div>
                     </div>
